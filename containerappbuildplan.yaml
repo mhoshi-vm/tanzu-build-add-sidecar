@@ -15,22 +15,7 @@ spec:
     steps:
     - namedTask: kubernetes-deployment.tanzu.vmware.com
     - containerTask:
-        image: bitnami/git
         command:
-          - /bin/sh
-          - -c
-        args:
-          - |
-            git clone https://github.com/mhoshi-vm/tanzu-build-add-sidecar.git kustomize ;
-            chmod -R 777 kustomize/* kustomize/.*
-    - containerTask:
-        image: line/kubectl-kustomize
-        command: [ "kustomize" ]
-        args:
-        - build
-        - "--load-restrictor"
-        - LoadRestrictionsNone
-        - kustomize
-        - "-o"
-        - output/app-config/deployment.yml
+          - /script/docker-script.sh
+        image: ghcr.io/mhoshi-vm/tanzu-build-add-sidecar@sha256:34c957e4978a744f39b1cc202f20166ad6e2485cffcbc4a47d03f5a91a699a7f
     - namedTask: kubernetes-carvel-package.tanzu.vmware.com
