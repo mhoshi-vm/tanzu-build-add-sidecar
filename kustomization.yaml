@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+-  ../output/app-config/deployment.yml
+patches:
+- path: side-car.yaml
+  target:
+    kind: Deployment
+
